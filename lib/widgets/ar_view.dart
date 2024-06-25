@@ -162,8 +162,7 @@ class _ARViewState extends State<ARView> {
 
   requestCameraPermission() async {
     if (Platform.isIOS) {
-      requestCameraPermission();
-      // _cameraPermission = PermissionStatus.granted;
+      _cameraPermission = PermissionStatus.granted;
     } else {
       _cameraPermission = await Permission.camera.request();
     }
