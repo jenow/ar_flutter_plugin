@@ -399,7 +399,23 @@ internal class AndroidARView(
                     val config = Config(session)
                     config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
                     config.focusMode = Config.FocusMode.AUTO
-                    config.depthMode = Config.DepthMode.AUTOMATIC
+                    try {
+                        val availability = ArCoreApk.getInstance().checkAvailability(context)
+                        if (availability.isTransient) {
+                            // Continue to check availability at a later time
+                        }
+
+                        if (availability.isSupported) {
+                            // Configure session to use the Depth API
+                            config.depthMode = Config.DepthMode.AUTOMATIC
+                        } else {
+                            // Handle devices that do not support the Depth API
+                            // You might choose to disable certain features or inform the user
+                        }
+                    } catch (e: Exception) {
+                        // Handle exception
+                        Log.e("ARCoreConfig", "Error checking ARCore availability", e)
+                    }
                     session.configure(config)
                     arSceneView.setupSession(session)
                 }
