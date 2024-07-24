@@ -400,7 +400,7 @@ internal class AndroidARView(
                     config.updateMode = Config.UpdateMode.LATEST_CAMERA_IMAGE
                     config.focusMode = Config.FocusMode.AUTO
                     try {
-                        val availability = ArCoreApk.getInstance().checkAvailability(context)
+                        val availability = ArCoreApk.getInstance().checkAvailability(activity)
                         if (availability.isTransient) {
                             // Continue to check availability at a later time
                         }
